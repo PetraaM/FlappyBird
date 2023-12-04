@@ -9,14 +9,6 @@ body {
   font-weight: bold;
   color: gray;
 }
-#round {
-  position: absolute;
-  top: 10px;
-  left: 1000px;
-  font-size: 18px;
-  font-weight: bold;
-  color: gray;
-}
 
 .restart-button {
   display: block;
