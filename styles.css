@@ -13,6 +13,14 @@ body {
   color: gray;
 }
 
+/* .scoresContainer {
+  background-color: red;
+  width: 100px;
+  z-index: +50;
+  position: absolute;
+  left: 0;
+} */
+
 .restart-button {
   display: block;
   margin-top: 10px;

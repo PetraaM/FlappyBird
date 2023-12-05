@@ -1,17 +1,29 @@
 `use strict`;
 
+function restartGame() {
+  // Reload the page to restart the game
+  location.reload();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  const bird = document.querySelector(".bird");
-  const gameDisplay = document.querySelector(".game-container");
-  const ground = document.querySelector(".ground-moving");
+  // Initialize DOM elements
+  let bird = document.querySelector(".bird");
+  let gameDisplay = document.querySelector(".game-container");
+  let ground = document.querySelector(".ground-moving");
+  let collisionSound = document.getElementById("collisionSound");
+  let spacebarSound = document.getElementById("spacebarSound");
 
-  const playerNameInput = document.querySelector("#playerName");
-
+  // Global variable declarations
   let birdLeft = 220;
   let birdBottom = 100;
   let gravity = 2;
   let isGameOver = false;
   let gap = 450;
+  let lives = 3;
+  let gameTimerId;
+
+  //  ------- Addition of Hassan --------------------------------
+
   let score = getStoredScore();
   // let playerName = getStoredPlayerName();
   let playerName = getPlayerName();
@@ -69,25 +81,50 @@ document.addEventListener("DOMContentLoaded", () => {
       : 0;
   }
 
+  //  ======= End of Hassan =====
+
+  function updateLivesDisplay() {
+    document.getElementById("lives").innerText = "Lives: " + lives;
+  }
+
+  function decreaseLives() {
+    lives--;
+    updateLivesDisplay();
+
+    if (lives === 0) {
+      // If no lives left, show game over popup
+      showGameOverPopup();
+    }
+  }
+
+  function showGameOverPopup() {
+    const popup = document.getElementById("gameOverPopup");
+    popup.style.display = "block";
+  }
+
+  // Define startGame function
   function startGame() {
     birdBottom -= gravity;
     bird.style.bottom = birdBottom + "px";
     bird.style.left = birdLeft + "px";
   }
-  let gameTimerId = setInterval(startGame, 100);
-
-  function control(e) {
-    if (e.keyCode === 32) {
-      jump();
-    }
-  }
+  //   let gameTimerId = setInterval(startGame, 20);
 
   function jump() {
     if (birdBottom < 500) birdBottom += 50;
     bird.style.bottom = birdBottom + "px";
     console.log(birdBottom);
   }
-  document.addEventListener("keyup", control);
+
+  // Define the control function globally
+  function control(e) {
+    if (e.keyCode === 32) {
+      // Spacebar key
+      jump();
+      spacebarSound.play();
+    }
+  }
+  //   document.addEventListener("keyup", control);
 
   function generateObstacle() {
     let obstacleLeft = 500;
@@ -115,7 +152,11 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(timerId);
         gameDisplay.removeChild(obstacle);
         gameDisplay.removeChild(topObstacle);
-        updateScore();
+
+        // ----- my addition hassan
+        // updateScore();
+
+        // ====== End of addition
       }
       if (
         (obstacleLeft > 200 &&
@@ -127,23 +168,64 @@ document.addEventListener("DOMContentLoaded", () => {
       ) {
         gameOver();
         clearInterval(timerId);
+        collisionSound.play();
       }
     }
+
     let timerId = setInterval(moveObstacle, 20);
     if (!isGameOver) setTimeout(generateObstacle, 3000);
   }
-  generateObstacle();
+
+  function initGame() {
+    birdBottom = 100;
+    bird.style.bottom = birdBottom + "px";
+    isGameOver = false;
+    gameTimerId = setInterval(startGame, 20);
+    generateObstacle();
+  }
+
+  function resetGame() {
+    // Clear existing obstacles
+    document.querySelectorAll(".obstacle, .topObstacle").forEach((obstacle) => {
+      obstacle.remove();
+    });
+
+    // Reset bird's position and game variables
+    birdLeft = 220;
+    birdBottom = 100;
+    bird.style.left = birdLeft + "px";
+    bird.style.bottom = birdBottom + "px";
+
+    // Restart game
+    if (gameTimerId) clearInterval(gameTimerId);
+    isGameOver = false;
+    gameTimerId = setInterval(startGame, 20);
+    generateObstacle();
+
+    // Reattach event listener for control
+    document.addEventListener("keyup", control);
+  }
 
   function gameOver() {
+    if (isGameOver) return; // Prevent multiple decrements for the same collision
+
     clearInterval(gameTimerId);
     console.log("game over");
     isGameOver = true;
     document.removeEventListener("keyup", control);
     ground.classList.add("ground");
     ground.classList.remove("ground-moving");
+
+    decreaseLives();
+
+    if (lives > 0) {
+      setTimeout(resetGame, 1000); // Reset game after a short delay
+    } else {
+      showGameOverPopup();
+    }
   }
 
-  playerNameInput.addEventListener("input", () => {
-    playerName = playerNameInput.value;
-  });
+  initGame();
+  document.addEventListener("keyup", control);
 });
+Collap;
