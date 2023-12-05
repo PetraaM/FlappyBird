@@ -1,11 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Silkscreen:regular,700);
 body {
   display: flex;
+  background-color: #fb8a28;
+  font-family: Silkscreen;
 }
 #lives {
   position: absolute;
-  top: 10px;
-  left: 1000px;
-  font-size: 18px;
+  top: 800px;
+  left: 200px;
+  font-size: 24px;
   font-weight: bold;
   color: gray;
 }
@@ -32,7 +35,7 @@ body {
   width: 80px;
   height: 790px;
   position: absolute;
-  background-color: white;
+  background-color: #fb8a28;
   z-index: +2;
 }
 
@@ -40,7 +43,7 @@ body {
   width: 80px;
   height: 790px;
   position: absolute;
-  background-color: white;
+  background-color: #fb8a28;
   z-index: +2;
   left: 580px;
 }
@@ -49,7 +52,7 @@ body {
   width: 660px;
   height: 50px;
   position: absolute;
-  background-color: white;
+  background-color: #fb8a28;
   z-index: +2;
   top: -50px;
 }
@@ -140,22 +143,4 @@ body {
   background-color: #fff;
   border: 2px solid #000;
   z-index: 999;
-}
-
-#pickup-line-container {
-  display: block;
-  position: absolute;
-  width: 400px;
-  height: 200px;
-  margin-top: -100px;
-  border: #000 2px;
-  margin: 800px;
-  padding: 150px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-family: "Arial", sans-serif;
-  font-size: 16px;
-  text-align: center;
-  color: #333;
 }
