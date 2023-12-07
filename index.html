@@ -15,18 +15,22 @@
       <source src="mixkit-game-ball-tap-2073.wav" type="audio/mp3" />
       Your browser does not support the audio tag.
     </audio>
-    <div class="border-left"></div>
-    <div class="game-container">
-      <div class="border-top"></div>
-      <div class="sky">
-        <div class="bird"></div>
+    <div class="container">
+      <div class="game">
+        <div class="button-container">
+          <button id="birdButton1">Bird 1</button>
+          <button id="birdButton2">Bird 2</button>
+          <button id="birdButton3">Bird 3</button>
+        </div>
+        <div class="sky-moving">
+          <div id="bird" class="bird"></div>
+        </div>
+      </div>
+      <div class="ground-container">
+        <div class="ground-moving"></div>
       </div>
     </div>
-    <div class="ground-container">
-      <div class="ground-moving"></div>
-    </div>
-    <div class="border-right"></div>
-    <div id="lives">Lives: 3</div>
+    <div id="lives">LIVES: 3</div>
 
     <div class="popup" id="gameOverPopup">
       GAME OVER

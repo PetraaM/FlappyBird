@@ -10,7 +10,7 @@ body {
   left: 200px;
   font-size: 24px;
   font-weight: bold;
-  color: gray;
+  color: black;
 }
 
 .restart-button {
@@ -18,63 +18,86 @@ body {
   margin-top: 10px;
   padding: 8px 12px;
   background-color: #4caf50;
-  color: #fff;
+  color: black;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
 }
-.game-container {
-  width: 500px;
-  height: 730px;
+
+.button-container {
   position: absolute;
-  left: 80px;
+  z-index: 1;
+}
+nav {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.container {
+  /* display: block;
+  width: 1024px;
+  height: 640px;
+  position: absolute;
+  left: 50%;
+  top: 52.5%;
+  transform: translate(-50%, -50%);
+  overflow: hidden; */
+  display: block;
+  width: 1024px;
+  height: 768px;
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  color: salm;
 }
 
-.border-left {
-  width: 80px;
-  height: 790px;
-  position: absolute;
-  background-color: #fb8a28;
-  z-index: +2;
+.game {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.border-right {
-  width: 80px;
-  height: 790px;
-  position: absolute;
-  background-color: #fb8a28;
-  z-index: +2;
-  left: 580px;
-}
-
-.border-top {
-  width: 660px;
-  height: 50px;
-  position: absolute;
-  background-color: #fb8a28;
-  z-index: +2;
-  top: -50px;
-}
-
-.sky {
+.sky-moving {
   background-image: url("Day\ Sky.png");
-  width: 500px;
-  height: 580px;
+  width: 100%;
+  height: 640px;
   position: absolute;
+  animation: slideleft 1500s infinite linear;
+  -webkit-animation: slideleft 1500s infinite linear;
+  background-size: cover;
+  /* width: 100%; */
 }
-
 .ground {
   background-image: url("bottom-background.png");
-  width: 500px;
+  width: 100%;
   height: 150px;
   position: absolute;
-  top: 580px;
-  z-index: +1;
+  z-index: 1;
 }
 
+/* BIRDs  */
 .bird {
-  background-image: url("flappy-bird.png");
+  background-image: url("bird1.png");
+  position: absolute;
+  width: 60px;
+  height: 45px;
+  left: 220px;
+  bottom: 100px;
+}
+.birdHassan {
+  background-image: url("bird2.png");
+  position: absolute;
+  width: 60px;
+  height: 62px;
+  left: 220px;
+  bottom: 100px;
+}
+
+.birdPetra {
+  background-image: url("bird3.png");
   position: absolute;
   width: 60px;
   height: 45px;
@@ -82,14 +105,73 @@ body {
   bottom: 100px;
 }
 
-.obstacle {
+/*  OBSTACLES   */
+
+.obstaclefork {
+  background-image: url("flappybird-fork.png");
+  width: 60px;
+  height: 300px;
+  position: absolute;
+}
+
+.topObstacleFork {
+  background-image: url("flappybird-fork.png");
+  transform: rotate(180deg);
+  width: 60px;
+  height: 300px;
+  position: absolute;
+}
+
+.obstacleKnife {
+  background-image: url("flappybird-knife.png");
+  width: 60px;
+  height: 300px;
+  position: absolute;
+}
+
+.topObstacleKnife {
+  background-image: url("flappybird-knife.png");
+  transform: rotate(180deg);
+  width: 60px;
+  height: 300px;
+  position: absolute;
+}
+
+/* Coffee */
+
+.obstacleCoffee {
+  background-image: url("coffee.png");
+  width: 200px;
+  height: 300px;
+  position: absolute;
+}
+
+/* Khadija */
+
+.obstacleKhadija {
+  background-image: url("khadija.png");
+  width: 200px;
+  height: 300px;
+  position: absolute;
+}
+
+.obstacleEskilCool {
+  background-image: url("eskilCool.png");
+  width: 190px;
+  height: 300px;
+  position: absolute;
+}
+
+/* Pipes */
+
+.obstaclePipe {
   background-image: url("flappybird-pipe.png");
   width: 60px;
   height: 300px;
   position: absolute;
 }
 
-.topObstacle {
+.topObstaclePipe {
   background-image: url("flappybird-pipe.png");
   transform: rotate(180deg);
   width: 60px;
@@ -97,6 +179,26 @@ body {
   position: absolute;
 }
 
+/* Salmon */
+
+.obstacleSalmon {
+  background-image: url("salmon.png");
+  width: 60px;
+  height: 300px;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+.topObstacleSalmon {
+  background-image: url("salmon.png");
+  transform: rotate(180deg);
+  width: 60px;
+  height: 300px;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+/* making it move to the right  */
 @keyframes slideright {
   from {
     background-position: 10000%;
@@ -115,24 +217,44 @@ body {
   }
 }
 
+/* Make it move to the left */
+
+@keyframes slideleft {
+  from {
+    background-position: 0%;
+  }
+  to {
+    background-position: 10000%;
+  }
+}
+
+@-webkit-keyframes slideleft {
+  from {
+    background-position: 0%;
+  }
+  to {
+    background-position: 10000%;
+  }
+}
 .ground-container {
+  width: 100%;
   height: 150px;
-  width: 580px;
-  left: 80px;
   position: absolute;
+  bottom: 0;
 }
 
 .ground-moving {
-  position: absolute;
-  top: 580px;
+  width: 100%;
   height: 150px;
+  position: absolute;
+  bottom: 0;
   background-image: url("bottom-background.png");
   background-repeat: repeat-x;
   animation: slideright 100s infinite linear;
   -webkit-animation: slideright 100s infinite linear;
-  width: 100%;
   z-index: +1;
 }
+
 .popup {
   display: none;
   position: fixed;
